@@ -1,0 +1,46 @@
+//Koko Bananas Eating...
+
+import java.util.*;
+class koko {
+    public int findMax(int []nums){
+        int n= nums.length;
+        int maxi = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            maxi = Math.max(maxi , nums[i]);
+        }
+        return maxi;
+    }
+    public int calTotalH(int []nums,int hourly){
+        int n= nums.length;
+        int totalH = 0;
+        for(int i=0;i<n;i++){
+            totalH += Math.ceil((double)nums[i] / (double) hourly);
+        }
+        return totalH;
+    }
+    public int minRateOfBns(int []nums,int h){
+        int low = 1;
+        int high = findMax(nums);
+        while(low <= high){
+            int mid = (low + high)/2;
+            int totalH = calTotalH(nums, h);
+            if(totalH<=h){
+                high = mid  - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+        }
+        return low ;
+    }
+    public static void main(String[] args) {
+        int [] arr = {3,1,2,4,5,7};
+        koko obj = new koko();
+        int h=4;
+        int res = obj.minRateOfBns(arr, h);
+        System.out.println(res);
+    }
+}
+
+
+// Output - 8
